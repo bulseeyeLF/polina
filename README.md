@@ -1,21 +1,22 @@
-# Ephemeral Chat App
+# Ephemeral Chat
 
-Simple WebSocket chat app using Express and Socket.IO.
+Simple no-database chat app for Render.
 
-## Local run
+## Features
 
-```bash
-npm install
-npm start
-```
+- Users enter a display name when they open the app.
+- Messages are broadcast live to everyone currently on the page.
+- Messages are not stored anywhere.
+- Refreshing, leaving, or opening a new tab starts with an empty chat.
 
-Then open http://localhost:3000 in two browser windows.
+## Deploy on Render
 
-## Render deploy
+1. Upload this project to a GitHub repository.
+2. Create a new Render **Web Service**.
+3. Connect the repository.
+4. Use these settings:
+   - Runtime: Node
+   - Build command: `npm install`
+   - Start command: `npm start`
 
-Create a new Render Web Service from this folder/repo.
-
-- Build command: `npm install`
-- Start command: `npm start`
-
-No database is used. Messages are not persisted. Users only see messages sent while their page is open.
+Render will provide the public URL after deployment.

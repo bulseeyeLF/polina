@@ -8,14 +8,23 @@ const io = new Server(server);
 
 app.use(express.static("public"));
 
+function cleanText(value, maxLength) {
+  if (typeof value !== "string") return "";
+  return value.trim().slice(0, maxLength);
+}
+
 io.on("connection", (socket) => {
-  socket.on("chat message", (msg) => {
-    if (typeof msg !== "string") return;
+  socket.on("chat message", (payload) => {
+    const username = cleanText(payload?.username, 32);
+    const message = cleanText(payload?.message, 500);
 
-    const cleanMessage = msg.trim();
-    if (!cleanMessage) return;
+    if (!username || !message) return;
 
-    io.emit("chat message", cleanMessage);
+    io.emit("chat message", {
+      username,
+      message,
+      sentAt: new Date().toISOString(),
+    });
   });
 });
 
